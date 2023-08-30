@@ -4,10 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
-const configViewEngine = require('./config/viewEngine');
-const mysql = require('mysql2');
+// const configViewEngine = require('./config/viewEngine');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const connection = require('./config/database');
 
 
 const port = process.env.PORT || 8888
@@ -29,13 +29,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME_DATABASE
-})
 
 connection.execute(
   'SELECT * FROM User',
