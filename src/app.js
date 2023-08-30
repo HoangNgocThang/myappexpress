@@ -16,7 +16,9 @@ const hostName = process.env.HOST_NAME
 var app = express();
 
 // view engine setup
-configViewEngine(app)
+// configViewEngine(app)
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -28,11 +30,11 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  port: 3307,
-  user:'root',
-  password: '123456',
-  database: 'hoidanit'
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME_DATABASE
 })
 
 connection.execute(
