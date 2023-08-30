@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 require('dotenv').config();
 const configViewEngine = require('./config/viewEngine');
+const mysql = require('mysql2');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -26,6 +27,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+const connection = mysql.createConnection({
+  host: 'localhost',
+  port: 3307,
+  user:'root',
+  password: '123456',
+  database: 'hoidanit'
+})
+
+connection.execute(
+  'SELECT * FROM User',
+  function(err, results, fields) {
+    console.log(  results); // results contains rows returned by server
+    console.log( fields); // fields contains extra meta data about results, if available
+    console.log( err);
+  }
+);
+
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -46,5 +65,8 @@ app.use(function (err, req, res, next) {
 app.listen(port, hostName, () => {
   console.log('vao:', port, hostName)
 })
+
+
+
 
 module.exports = app;
