@@ -33,10 +33,16 @@ const saveUser = (req, res, next) => {
             res.send('saveUser')
         }
     );
+}
 
+const updateUser = (req, res, next) => {
+    const userId= req.params?.id;
+    console.log('update user', req.params)
+    res.send('update User')
 }
 
 module.exports = {
     getUser,
-    saveUser
+    saveUser,
+    updateUser
 }
