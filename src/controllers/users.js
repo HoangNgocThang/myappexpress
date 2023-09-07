@@ -1,14 +1,23 @@
 const connection = require("../config/database")
 
-const getUser = (req, res, next) => {
-    connection.query(
+const getUser = async (req, res, next) => {
+
+    // connection.query(
+    //     `Select * from User`,
+    //     function (err, results) {
+    //         console.log(results);
+    //         res.json(results)
+    //     }
+    // );
+
+    let [results, fields] = await connection.query(
         `Select * from User`,
         function (err, results) {
             console.log(results);
             res.json(results)
         }
     );
-
+    console.log(results);
 }
 
 const saveUser = (req, res, next) => {
