@@ -30,15 +30,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-
-connection.execute(
-  'SELECT * FROM User',
-  function(err, results, fields) {
-    console.log(  results); // results contains rows returned by server
-    console.log( fields); // fields contains extra meta data about results, if available
-    console.log( err);
-  }
-);
+// connection.execute(
+//   'SELECT * FROM User',
+//   function(err, results, fields) {
+//     console.log(  results); // results contains rows returned by server
+//     console.log( fields); // fields contains extra meta data about results, if available
+//     console.log( err);
+//   }
+// );
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
